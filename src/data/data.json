@@ -1,0 +1,184 @@
+{
+  "Header": {
+    "title": "Greenshift Energy",
+    "paragraph": " Welcome to GreenShift Energy, your trusted partner in transitioning to renewable energy. Our expertise in solar panel installations ensures you get the best service and top-quality products tailored to your needs."
+  },
+  "About": {
+    "paragraph": "At GreenShift Energy, we are committed to providing exceptional service and quality products. Our mission is to deliver sustainable energy solutions that are both affordable and efficient.",
+    "Why": [
+      "High-quality service and products",
+      "Innovative solutions",
+      "Dedicated customer support",
+      "Sustainable and eco-friendly"
+    ],
+    "Why2": [
+      "Expertise in solar installations",
+      "Customized solutions",
+      "Reliable and efficient",
+      "Commitment to environmental conservation"
+    ]
+  },
+  "Gallery": [
+    {
+      "title": "Impressive Residential Installation",
+      "largeImage": "img/portfolio/01-large.jpg",
+      "smallImage": "img/portfolio/01-small.jpg"
+    },
+    {
+      "title": "Large-Scale Commercial Project",
+      "largeImage": "img/portfolio/02-large.jpg",
+      "smallImage": "img/portfolio/02-small.jpg"
+    },
+    {
+      "title": " Community Solar Initiative",
+      "largeImage": "img/portfolio/03-large.jpg",
+      "smallImage": "img/portfolio/03-small.jpg"
+    },
+    {
+      "title": "Innovative Roof-Mounted Systems",
+      "largeImage": "img/portfolio/04-large.jpg",
+      "smallImage": "img/portfolio/04-small.jpg"
+    },
+    {
+      "title": "Hybrid Energy Solutions",
+      "largeImage": "img/portfolio/05-large.jpg",
+      "smallImage": "img/portfolio/05-small.jpg"
+    },
+    {
+      "title": "Off-Grid Applications",
+      "largeImage": "img/portfolio/06-large.jpg",
+      "smallImage": "img/portfolio/06-small.jpg"
+    },
+    {
+      "title": "Custom Solar Solutions",
+      "largeImage": "img/portfolio/07-large.jpg",
+      "smallImage": "img/portfolio/07-small.jpg"
+    },
+    {
+      "title": "Residential Solar Installations",
+      "largeImage": "img/portfolio/08-large.jpg",
+      "smallImage": "img/portfolio/08-small.jpg"
+    },
+    {
+      "title": "Commercial Rooftop Systems",
+      "largeImage": "img/portfolio/09-large.jpg",
+      "smallImage": "img/portfolio/09-small.jpg"
+    }
+  ],
+  "Services": [
+    {
+      "icon": "fa fa-plug",
+      "name": "Residential Solar Installation",
+      "text": "We provide high-quality solar panel installations for homes, helping you reduce energy bills."
+    },
+    {
+      "icon": "fa fa-cart-arrow-down",
+      "name": "Commercial Solar Solutions",
+      "text": "Tailored solar energy solutions for businesses to enhance energy efficiency and sustainability."
+    },
+    {
+      "icon": "fa fa-cloud-download",
+      "name": "Hybrid Solar Systems",
+      "text": "Combining on-grid and off-grid systems to ensure uninterrupted power supply."
+    },
+    {
+      "icon": "fa fa-language",
+      "name": "Solar Panel Maintenance",
+      "text": " Comprehensive maintenance services to keep your solar panels in optimal condition."
+    },
+    {
+      "icon": "fa fa-plane",
+      "name": "Off-Grid Solar Solutions",
+      "text": "Independent solar power systems for areas without access to the main power grid."
+    },
+    {
+      "icon": "fa fa-pie-chart",
+      "name": "Custom Solar Projects",
+      "text": "Customized solar solutions to meet specific energy requirements and preferences."
+    }
+  ],
+  "Testimonials": [
+    {
+      "img": "img/testimonials/01.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/02.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Johnathan Doe"
+    },
+    {
+      "img": "img/testimonials/03.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/04.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Johnathan Doe"
+    },
+    {
+      "img": "img/testimonials/05.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/06.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Johnathan Doe"
+    }
+  ],
+  "Team": [
+    {
+      "img": "img/team/01.jpg",
+      "name": "Spandan",
+      "job": "Director"
+    },
+    {
+      "img": "img/team/02.jpg",
+      "name": "Mike Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/03.jpg",
+      "name": "Jane Doe",
+      "job": "Senior Designer"
+    },
+    {
+      "img": "img/team/04.jpg",
+      "name": "Karen Doe",
+      "job": "Project Manager"
+    }
+  ],
+  "Contact": {
+    "address": "4321 California St, San Francisco, CA 12345 ",
+    "phone": "+1 123 456 1234",
+    "email": "info@company.com",
+    "facebook": "fb.com",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  },
+  "Features": [
+    {
+      "icon": "fa fa-comments-o",
+      "title": "Expert Consultation",
+      "text": "Receive expert advice and consultation to determine the best solar solutions for your needs."
+    },
+    {
+      "icon": "fa fa-bullhorn",
+      "title": "Quality Assurance",
+      "text": "We ensure top quality in every installation with our stringent quality control measures."
+    },
+    {
+      "icon": "fa fa-group",
+      "title": "Customer Support",
+      "text": "Our dedicated customer support team is here to assist you at every step of your solar journey."
+    },
+    {
+      "icon": "fa fa-magic",
+      "title": "Sustainable Solutions",
+      "text": "Committed to providing sustainable and eco-friendly solar energy solutions."
+    }
+  ]
+}
