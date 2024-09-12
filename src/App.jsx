@@ -10,6 +10,8 @@ import { AuthProvider } from "./components/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { UsersDashboard } from "./components/ManageUsers/UsersDashboard";
+import { ItemssDashboard } from "./components/ManageItems/ItemsDashBoard";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -30,6 +32,22 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <PriceDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users-dashboard"
+            element={
+              <ProtectedRoute>
+                <UsersDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/items-dashboard"
+            element={
+              <ProtectedRoute>
+                <ItemssDashboard />
               </ProtectedRoute>
             }
           />

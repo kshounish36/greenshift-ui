@@ -126,6 +126,38 @@ export const Navigation = () => {
                 </li>
               </>
             )}
+            {loggedIn && (
+              <>
+                <li>
+                  <a
+                    className="page-scroll"
+                    onClick={() => navigate("/price-details")}
+                  >
+                    Generate Price
+                  </a>
+                </li>
+                {authState.role === "admin" && (
+                  <>
+                    <li>
+                      <a
+                        className="page-scroll"
+                        onClick={() => navigate("/users-dashboard")}
+                      >
+                        Manage Users
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="page-scroll"
+                        onClick={() => navigate("/items-dashboard")}
+                      >
+                        Items Dashboard
+                      </a>
+                    </li>
+                  </>
+                )}
+              </>
+            )}
             <li>
               <a onClick={handleLoginClick} style={{ cursor: "pointer" }}>
                 {loggedIn ? <FaUserCheck /> : <FaUser />}
