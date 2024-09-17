@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UsersDashboard } from "./components/ManageUsers/UsersDashboard";
 import { ItemssDashboard } from "./components/ManageItems/ItemsDashBoard";
+import { LeadsDashboard } from "./components/ManageLeads/LeadsDashboard";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -48,6 +49,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <ItemssDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/leads-dashboard"
+            element={
+              <ProtectedRoute>
+                <LeadsDashboard />
               </ProtectedRoute>
             }
           />

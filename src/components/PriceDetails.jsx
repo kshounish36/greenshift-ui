@@ -9,7 +9,6 @@ import {
 import GeneratePDF from "./GeneratePDF";
 import { toast } from "react-toastify";
 import { AuthContext } from "./AuthContext";
-import LeadsGrid from "./LeadsGrid";
 import { fetchLeads } from "../api/postLead";
 import CustomSelect from "./CustomSelect";
 
@@ -167,34 +166,6 @@ const Banner = styled.div`
   }
 `;
 
-const TabContainer = styled.div``;
-
-const TabTitle = styled.button`
-  font-size: 1rem;
-  background-color: #f0f0f0;
-  padding: 8px 16px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #ddd; /* Change color on hover */
-  }
-
-  /* Active tab styles */
-  ${({ isActive }) =>
-    isActive &&
-    `
-    background-color: #90AEAD;
-    color: white;
-  `}
-`;
-
-const TabContent = styled.div`
-  padding: 10px;
-  margin: 10px;
-`;
-
 export const PriceDetails = () => {
   const [systemType, setSystemType] = useState("");
   const [roofType, setRoofType] = useState("");
@@ -205,7 +176,6 @@ export const PriceDetails = () => {
   const [searchPayload, setSearchPayloadPayload] = useState({});
   const [btndsbld, setBtndsbld] = useState(false);
   const { authState } = useContext(AuthContext);
-  const [activeTab, setActiveTab] = useState("bos");
   const [leadsData, setLeadsData] = useState([]);
   const [selectedLeadDetails, setSelectedLeadDetails] = useState(null);
   const [selectedLead, setSelectedLead] = useState(null);
@@ -294,6 +264,7 @@ export const PriceDetails = () => {
             <h3 style={{ color: "white" }}>Customer Name</h3>
             {leadsData.length > 0 && (
               <CustomSelect
+                component="pricedetails"
                 data={leadsData}
                 placeholder="Select Customer Name"
                 defaultValue={selectedLead}
@@ -354,61 +325,32 @@ export const PriceDetails = () => {
         </Button>
       </LeftCard>
       <RightCard>
-        <TabContainer>
-          <TabTitle
-            onClick={() => setActiveTab("bos")}
-            isActive={activeTab === "bos"}
-          >
-            Price Dashboard
-          </TabTitle>
-          {authState.role !== "subdlr" && (
-            <TabTitle
-              onClick={() => setActiveTab("leads")}
-              isActive={activeTab === "leads"}
-            >
-              Leads Dashboard
-            </TabTitle>
+        <>
+          {!searchResult && bosItems && authState.role !== "subdlr" && (
+            <DataGrid
+              bosItems={bosItems}
+              onSubmit={handleSubmit}
+              leadsData={selectedLeadDetails}
+            />
           )}
-          <TabContent>
-            {activeTab === "bos" && (
-              <>
-                {!searchResult && bosItems && authState.role !== "subdlr" && (
-                  <DataGrid
-                    bosItems={bosItems}
-                    onSubmit={handleSubmit}
-                    leadsData={selectedLeadDetails}
-                  />
-                )}
-                {searchResult && authState.role !== "subdlr" && (
-                  <GeneratePDF
-                    data={searchResult}
-                    leadsData={selectedLeadDetails}
-                  />
-                )}
-                {Object.keys(bosItems).length === 0 &&
-                  authState.role === "subdlr" && (
-                    <div style={{ alignItems: "center", textAlign: "center" }}>
-                      <Banner>Solar Installation Cost Details</Banner>
-                      <hr />
-                      <p>
-                        Please use left serach pannel to input system
-                        configuration and get desired price details!!
-                      </p>
-                    </div>
-                  )}
-                {Object.keys(bosItems).length > 0 &&
-                  authState.role === "subdlr" && (
-                    <GeneratePDF data={bosItems} />
-                  )}
-              </>
+          {searchResult && authState.role !== "subdlr" && (
+            <GeneratePDF data={searchResult} leadsData={selectedLeadDetails} />
+          )}
+          {Object.keys(bosItems).length === 0 &&
+            authState.role === "subdlr" && (
+              <div style={{ alignItems: "center", textAlign: "center" }}>
+                <Banner>Solar Installation Cost Details</Banner>
+                <hr />
+                <p>
+                  Please use left serach pannel to input system configuration
+                  and get desired price details!!
+                </p>
+              </div>
             )}
-            {authState.role !== "subdlr" && activeTab === "leads" && (
-              <>
-                <LeadsGrid leadsData={leadsData} />
-              </>
-            )}
-          </TabContent>
-        </TabContainer>
+          {Object.keys(bosItems).length > 0 && authState.role === "subdlr" && (
+            <GeneratePDF data={bosItems} />
+          )}
+        </>
       </RightCard>
     </Container>
   );

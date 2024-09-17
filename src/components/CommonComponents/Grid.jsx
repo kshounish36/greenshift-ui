@@ -3,6 +3,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import styled from "styled-components";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 // Styled wrapper for AG Grid
 const GridWrapper = styled.div`
@@ -17,8 +18,14 @@ const Grid = ({ columnDefs, rowData, onEditRow, onDeleteRow }) => {
   const actionCellRenderer = (params) => {
     return (
       <div>
-        <button onClick={() => onEditRow(params.data)}>Edit</button>
-        <button onClick={() => onDeleteRow(params.data.id)}>Delete</button>
+        <FaEdit
+          style={{ margin: "10px", color: "#a2d2ff" }}
+          onClick={() => onEditRow(params.data)}
+        />
+        <FaTrash
+          style={{ margin: "10px", color: "#e76f51" }}
+          onClick={() => onDeleteRow(params.data.id)}
+        />
       </div>
     );
   };
@@ -29,11 +36,14 @@ const Grid = ({ columnDefs, rowData, onEditRow, onDeleteRow }) => {
     {
       headerName: "Actions",
       field: "actions",
-      cellRendererFramework: actionCellRenderer,
+      cellRenderer: actionCellRenderer,
       sortable: false,
       filter: false,
     },
   ];
+  const frameworkComponents = {
+    buttonCellRenderer: actionCellRenderer,
+  };
 
   return (
     <GridWrapper className="ag-theme-alpine">
@@ -42,6 +52,7 @@ const Grid = ({ columnDefs, rowData, onEditRow, onDeleteRow }) => {
         rowData={rowData}
         pagination={true}
         paginationPageSize={10}
+        frameworkComponents={frameworkComponents}
       />
     </GridWrapper>
   );

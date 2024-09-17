@@ -3,6 +3,11 @@ import styled from "styled-components";
 import CustomSelect from "../ManageItems/../CustomSelect"; // The CustomSelect component for the dropdown
 import { Select, Input, Banner, Button } from "../CommonStyles";
 import { useLocation } from "react-router-dom";
+import {
+  createSolarItemDetails,
+  updateSolarItemDetails,
+} from "../../api/ManageItems/solarModuleSysDetails";
+import { fetchBosItemsDetails } from "../../api/ManageItems/bosItemsDetasils";
 
 // Styled components
 const FormWrapper = styled.div`
@@ -77,7 +82,6 @@ const SubmitButton = styled.button`
 const BosItemRow = styled.div`
   width: 100%;
   display: grid;
-  //   grid-auto-flow: column;
   grid-template-columns: 3fr 1.5fr 0.5fr 0.5fr;
   justify-content: start;
   align-items: stretch;
@@ -100,14 +104,32 @@ const initialState = {
 
 const SolarItemInputForm = ({ initialValues, onSubmit }) => {
   const [formState, setFormState] = useState(initialValues || initialState);
-
-  const { state } = useLocation();
-  const editedData = state?.initialValues;
+  const [bosItems, setBosItems] = useState([]);
 
   useEffect(() => {
-    if (editedData) {
-      setFormState(editedData);
+    if (initialValues) {
+      setFormState({
+        noOfModules: initialValues.no_of_modules,
+        dcCapacity: initialValues.dc_capacity,
+        invCapacity: initialValues.inv_capacity,
+        noOfPhase: initialValues.no_of_phase,
+        roofTyp: initialValues.roof_typ,
+        solarModPrc: initialValues.solar_mod_prc,
+        subdlrSolarModPrc: initialValues.subdlr_solar_mod_prc,
+        iAndCPrc: initialValues.i_and_c_prc,
+        bosPrc: initialValues.bos_prc,
+        sysType: initialValues.sysType,
+        bosItems: initialValues.bos_itm_qty.map((item) => ({
+          item_id: Object.keys(item)[0],
+          quantity: Object.values(item)[0],
+        })),
+      });
     }
+    const fetchBOSItems = async () => {
+      const bosItemDetails = await fetchBosItemsDetails();
+      setBosItems(bosItemDetails);
+    };
+    fetchBOSItems();
   }, [initialValues]);
 
   const handleInputChange = (e) => {
@@ -152,23 +174,16 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
     };
 
     try {
-      const response = await fetch("http://your-api-url/gridtiedsys", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        alert("Form submitted successfully!");
+      if (initialValues) {
+        // Update mode
+        await updateSolarItemDetails(payload);
+        onSubmit(payload);
       } else {
-        alert("Form submission failed.");
+        // Add new record
+        await createSolarItemDetails(payload);
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("An error occurred during form submission.");
+      console.error("Error submitting solar item details form::", error);
     }
   };
 
@@ -204,8 +219,7 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
             required
             name="sysType"
             onChange={handleInputChange}
-            //   value={systemType}
-            //   onChange={(e) => setSystemType(e.target.value)}
+            value={formState.sysType}
           >
             <option value="" disabled selected hidden>
               Select Type of System
@@ -222,17 +236,24 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
             onChange={handleInputChange}
           />
           <Label>No Of Phase</Label>
-          <Input
-            type="number"
-            name="dc_capacity"
-            //   value={formState.dc_capacity}
-            //   onChange={handleInputChange}
-          />
+          <Select
+            required
+            name="noOfPhase"
+            onChange={handleInputChange}
+            value={formState.noOfPhase}
+          >
+            <option value="" disabled selected hidden>
+              Select Phase
+            </option>
+            <option value="1">Single Phase</option>
+            <option value="3">Three Phase</option>
+          </Select>
           <Label>Type of Roof:</Label>
           <Select
             required
-            //   value={roofType}
-            //   onChange={(e) => setRoofType(e.target.value)}
+            name="roofTyp"
+            value={formState.roofTyp}
+            onChange={handleInputChange}
           >
             <option value="" disabled selected hidden>
               Select Type of Roof
@@ -244,42 +265,50 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
           <Label>Solar Module Price</Label>
           <Input
             type="number"
-            name="dc_capacity"
-            //   value={formState.dc_capacity}
-            //   onChange={handleInputChange}
+            name="solarModPrc"
+            value={formState.solarModPrc}
+            onChange={handleInputChange}
           />
           <Label>Sub Dealer Solar Module Price</Label>
           <Input
             type="number"
-            name="dc_capacity"
-            //   value={formState.dc_capacity}
-            //   onChange={handleInputChange}
+            name="subdlrSolarModPrc"
+            value={formState.subdlrSolarModPrc}
+            onChange={handleInputChange}
           />
           <Label>Installation Cost</Label>
           <Input
             type="number"
-            name="dc_capacity"
-            //   value={formState.dc_capacity}
-            //   onChange={handleInputChange}
+            name="iAndCPrc"
+            value={formState.iAndCPrc}
+            onChange={handleInputChange}
           />
           <Label>BOS Cost</Label>
           <Input
             type="number"
-            name="dc_capacity"
-            //   value={formState.dc_capacity}
-            //   onChange={handleInputChange}
+            name="bosPrc"
+            value={formState.bosPrc}
+            onChange={handleInputChange}
           />
-          {/* Add the rest of your input fields similarly */}
-
           <Field>
             <Label>
               Select BOS Items and Qty. Required For This Configuration
             </Label>
-            {formState.bosItems.map((item, index) => (
+            {formState?.bosItems?.map((item, index) => (
               <BosItemRow key={index}>
                 <CustomSelect
-                  // data={}
-                  placeholder="Select BOS Item"
+                  placeholder={
+                    initialValues
+                      ? bosItems
+                          ?.find(
+                            (i) =>
+                              parseInt(i.item_id) === parseInt(item.item_id)
+                          )
+                          ?.item_nm.toString()
+                      : "Select BOS Item"
+                  }
+                  component="addsolaritems"
+                  data={bosItems}
                   onChange={(selectedOption) =>
                     handleBosItemChange(index, "item_id", selectedOption.value)
                   }
@@ -316,8 +345,8 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
             ))}
           </Field>
 
-          <SubmitButton type="reset" onClick={resetForm}>
-            Submit
+          <SubmitButton type="submit">
+            {initialValues ? "Update" : "Add"}
           </SubmitButton>
         </form>
       </FormWrapper>

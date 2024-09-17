@@ -141,9 +141,9 @@ export const Navigation = () => {
                     <li>
                       <a
                         className="page-scroll"
-                        onClick={() => navigate("/users-dashboard")}
+                        onClick={() => navigate("/leads-dashboard")}
                       >
-                        Manage Users
+                        Leads Dashboard
                       </a>
                     </li>
                     <li>
@@ -152,6 +152,14 @@ export const Navigation = () => {
                         onClick={() => navigate("/items-dashboard")}
                       >
                         Items Dashboard
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="page-scroll"
+                        onClick={() => navigate("/users-dashboard")}
+                      >
+                        Users Dashboard
                       </a>
                     </li>
                   </>

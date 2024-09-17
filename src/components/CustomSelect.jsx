@@ -37,15 +37,32 @@ const MenuList = (props) => {
   );
 };
 
-const CustomSelect = ({ data, defaultValue, onChange, placeholder }) => {
+const CustomSelect = ({
+  component,
+  data,
+  defaultValue,
+  onChange,
+  placeholder,
+}) => {
   const options = [{ value: null, label: null }];
-  data &&
-    data.map((option) => {
-      options.push({
-        value: option.id,
-        label: option.name,
+
+  if (component === "pricedetails") {
+    data &&
+      data.map((option) => {
+        options.push({
+          value: option.id,
+          label: option.name,
+        });
       });
-    });
+  } else if (component === "addsolaritems") {
+    data &&
+      data.map((option) => {
+        options.push({
+          value: option.item_id,
+          label: option.item_nm,
+        });
+      });
+  }
 
   const loadOptions = (inputValue, callback) => {
     setTimeout(() => {
