@@ -163,7 +163,7 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
 
     const bos_itm_qty = formState.bosItems.reduce((acc, item) => {
       if (item.item_id && item.quantity) {
-        acc.push({ [item.item_id]: item.quantity });
+        acc.push({ [item.item_id]: parseInt(item.quantity) });
       }
       return acc;
     }, []);
@@ -294,55 +294,60 @@ const SolarItemInputForm = ({ initialValues, onSubmit }) => {
             <Label>
               Select BOS Items and Qty. Required For This Configuration
             </Label>
-            {formState?.bosItems?.map((item, index) => (
-              <BosItemRow key={index}>
-                <CustomSelect
-                  placeholder={
-                    initialValues
-                      ? bosItems
-                          ?.find(
-                            (i) =>
-                              parseInt(i.item_id) === parseInt(item.item_id)
-                          )
-                          ?.item_nm.toString()
-                      : "Select BOS Item"
-                  }
-                  component="addsolaritems"
-                  data={bosItems}
-                  onChange={(selectedOption) =>
-                    handleBosItemChange(index, "item_id", selectedOption.value)
-                  }
-                />
-                <NumberInput
-                  placeholder="Qty."
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) =>
-                    handleBosItemChange(index, "quantity", e.target.value)
-                  }
-                />
-                <AddButton type="button" onClick={addBosItemRow}>
-                  +
-                </AddButton>
-                {index === 0 && (
-                  <RemoveButton
-                    type="button"
-                    onClick={() => removeBosItemRow(index)}
-                    style={{ visibility: "hidden" }}
-                  >
-                    -
-                  </RemoveButton>
-                )}
-                {index !== 0 && (
-                  <RemoveButton
-                    type="button"
-                    onClick={() => removeBosItemRow(index)}
-                  >
-                    -
-                  </RemoveButton>
-                )}
-              </BosItemRow>
-            ))}
+            {bosItems &&
+              formState?.bosItems?.map((item, index) => (
+                <BosItemRow key={index}>
+                  <CustomSelect
+                    placeholder={
+                      initialValues
+                        ? bosItems
+                            ?.find(
+                              (i) =>
+                                parseInt(i.item_id) === parseInt(item.item_id)
+                            )
+                            ?.item_nm.toString()
+                        : "Select BOS Item"
+                    }
+                    component="addsolaritems"
+                    data={bosItems}
+                    onChange={(selectedOption) =>
+                      handleBosItemChange(
+                        index,
+                        "item_id",
+                        selectedOption.value
+                      )
+                    }
+                  />
+                  <NumberInput
+                    placeholder="Qty."
+                    type="number"
+                    value={item.quantity}
+                    onChange={(e) =>
+                      handleBosItemChange(index, "quantity", e.target.value)
+                    }
+                  />
+                  <AddButton type="button" onClick={addBosItemRow}>
+                    +
+                  </AddButton>
+                  {index === 0 && (
+                    <RemoveButton
+                      type="button"
+                      onClick={() => removeBosItemRow(index)}
+                      style={{ visibility: "hidden" }}
+                    >
+                      -
+                    </RemoveButton>
+                  )}
+                  {index !== 0 && (
+                    <RemoveButton
+                      type="button"
+                      onClick={() => removeBosItemRow(index)}
+                    >
+                      -
+                    </RemoveButton>
+                  )}
+                </BosItemRow>
+              ))}
           </Field>
 
           <SubmitButton type="submit">

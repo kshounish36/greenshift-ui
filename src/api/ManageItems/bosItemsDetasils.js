@@ -44,3 +44,16 @@ export const updateBOSItemDetails = async (payload) => {
     );
   }
 };
+
+export const deleteBOSItem = async (payload) => {
+  let url = "/deletebositem";
+  try {
+    const response = await api.delete(url, { data: { item_id: payload } });
+    const { message } = response.data;
+    toast.success(message);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting BOS item:", error);
+    toast.error(`Error in deleteing BOS item. Please contact administrator.`);
+  }
+};

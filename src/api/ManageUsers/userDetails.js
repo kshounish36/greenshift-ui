@@ -42,3 +42,16 @@ export const updateUserDetails = async (payload) => {
     );
   }
 };
+
+export const deleteUser = async (payload) => {
+  let url = "/users/deleteuser";
+  try {
+    const response = await api.delete(url, { data: { id: payload } });
+    const { message } = response.data;
+    toast.success(message);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    toast.error(`Error in deleteing user. Please contact administrator.`);
+  }
+};

@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Create an axios instance
 const api = axios.create({
-  // baseURL: "http://43.205.187.236/api",
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://43.205.187.236/api",
+  // baseURL: "http://localhost:3000/api",
   // withCredentials: true, // Ensure cookies are sent with each request
 });
 

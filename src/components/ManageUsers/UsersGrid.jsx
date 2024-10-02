@@ -1,7 +1,10 @@
 // PriceDetails.jsx
 import React, { useContext, useEffect, useState } from "react";
 import Grid from "../CommonComponents/Grid";
-import { fetchUsersDetails } from "../../api/ManageUsers/userDetails";
+import {
+  deleteUser,
+  fetchUsersDetails,
+} from "../../api/ManageUsers/userDetails";
 import AddUsersForm from "./AddNewUser";
 
 const columnDefs = [
@@ -32,9 +35,10 @@ export const UsersGrid = () => {
   };
 
   // Function to handle deleting a row
-  const handleDeleteRow = (rowId) => {
-    console.log("Deleting row with ID:", rowId);
-    setRowData(rowData.filter((row) => row.id !== rowId));
+  const handleDeleteRow = async (rowId) => {
+    console.log("Deleting row with ID:", rowId.id);
+    await deleteUser(rowId.id);
+    setRowData(rowData.filter((row) => row.id !== rowId.id));
   };
 
   const handleUpdateRow = (updatedData) => {

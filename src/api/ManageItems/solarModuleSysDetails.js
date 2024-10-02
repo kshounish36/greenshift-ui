@@ -20,9 +20,9 @@ export const fetchSolarModuleDetails = async (sysType) => {
   let url = "";
   if (sysType === "grid-tied") {
     url = "/gridtied";
-  } else if (sysType === "offGridSys") {
+  } else if (sysType === "off-grid") {
     url = "/offgrid";
-  } else if (sysType === "hybridSys") {
+  } else if (sysType === "hybrid") {
     url = "/hybrid";
   }
   try {
@@ -48,5 +48,18 @@ export const updateSolarItemDetails = async (payload) => {
     toast.error(
       `Error in updating solar item details. Please contact administrator.`
     );
+  }
+};
+
+export const deleteSolarItem = async (payload) => {
+  let url = "/deletesolaritem";
+  try {
+    const response = await api.delete(url, { data: payload });
+    const { message } = response.data;
+    toast.success(message);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting solar item:", error);
+    toast.error(`Error in deleteing solar item. Please contact administrator.`);
   }
 };

@@ -24,7 +24,7 @@ const Grid = ({ columnDefs, rowData, onEditRow, onDeleteRow }) => {
         />
         <FaTrash
           style={{ margin: "10px", color: "#e76f51" }}
-          onClick={() => onDeleteRow(params.data.id)}
+          onClick={() => onDeleteRow(params.data)}
         />
       </div>
     );

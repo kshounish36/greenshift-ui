@@ -1,7 +1,10 @@
 // PriceDetails.jsx
 import React, { useContext, useEffect, useState } from "react";
 import Grid from "../CommonComponents/Grid";
-import { fetchBosItemsDetails } from "../../api/ManageItems/bosItemsDetasils";
+import {
+  deleteBOSItem,
+  fetchBosItemsDetails,
+} from "../../api/ManageItems/bosItemsDetasils";
 import AddBOSItemsForm from "./AddBOSItem";
 
 const columnDefs = [
@@ -38,9 +41,10 @@ export const BOSItemsGrid = () => {
   };
 
   // Function to handle deleting a row
-  const handleDeleteRow = (rowId) => {
-    console.log("Deleting row with ID:", rowId);
-    setRowData(rowData.filter((row) => row.id !== rowId));
+  const handleDeleteRow = async (rowId) => {
+    console.log("Deleting row with ID:", rowId.item_id);
+    await deleteBOSItem(rowId.item_id);
+    setRowData(rowData.filter((row) => row.item_id !== rowId.item_id));
   };
 
   const handleUpdateRow = (updatedData) => {

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import DataGrid from "./DataGrid";
 import {
   fetchSearchResults,
+  fetchSysCapacities,
   fetchUpdatedSearchResults,
 } from "../api/fetchSearchResults";
 import GeneratePDF from "./GeneratePDF";
@@ -81,21 +82,6 @@ const RightCard = styled(Card)`
   }
 `;
 
-const Input = styled.input`
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: black;
-
-  @media (max-width: 768px) {
-    padding: 8px;
-    margin: 8px 0;
-  }
-`;
-
 const Select = styled.select`
   display: block;
   width: 100%;
@@ -128,6 +114,7 @@ const Button = styled.button`
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  margin-top: 15px;
 
   &:hover {
     background-color: #0056b3;
@@ -179,6 +166,7 @@ export const PriceDetails = () => {
   const [leadsData, setLeadsData] = useState([]);
   const [selectedLeadDetails, setSelectedLeadDetails] = useState(null);
   const [selectedLead, setSelectedLead] = useState(null);
+  const [sysCapacities, setSysCapacities] = useState(null);
 
   useEffect(() => {
     const fetchLeadDetails = async () => {
@@ -187,20 +175,31 @@ export const PriceDetails = () => {
     };
     fetchLeadDetails();
 
+    if (systemType !== "" && roofType !== "" && phase !== "") {
+      const getsysCapacitis = async () => {
+        const sysCapacities = await fetchSysCapacities({
+          type: systemType,
+          roof_typ: roofType,
+          no_of_phase: phase,
+        });
+        setSysCapacities(sysCapacities);
+      };
+      getsysCapacitis();
+    }
+
     const leadDetails =
       leadsData.length > 0 &&
       selectedLead &&
       leadsData.find((obj) => obj.id === selectedLead);
     setSelectedLeadDetails(leadDetails);
 
-    if (systemCapacity.length === 0 || systemCapacity === "0") {
+    if (!systemCapacity) {
       setBtndsbld(false);
     }
     if (
       systemType !== "" &&
       roofType !== "" &&
-      systemCapacity.length !== 0 &&
-      systemCapacity !== "0" &&
+      systemCapacity &&
       phase !== ""
     ) {
       setBtndsbld(true);
@@ -255,6 +254,9 @@ export const PriceDetails = () => {
   const handleLeadDetails = (selectedOption) => {
     setSelectedLead(selectedOption.value);
   };
+  const handleSysCapacity = (selectedOption) => {
+    setSystemCapacity(selectedOption.value);
+  };
 
   return (
     <Container>
@@ -300,14 +302,14 @@ export const PriceDetails = () => {
           <option value="sheet roof">Sheet Roof</option>
           <option value="w/o mms">Without MMS</option>
         </Select>
-        <label>System Capacity:</label>
+        {/* <label>System Capacity:</label>
         <Input
           type="number"
           min={1}
           placeholder="Enter system capacity"
           value={systemCapacity}
           onChange={(e) => setSystemCapacity(e.target.value)}
-        />
+        /> */}
         <label>Phase:</label>
         <Select
           required
@@ -319,6 +321,21 @@ export const PriceDetails = () => {
           </option>
           <option value="1">Single Phase</option>
           <option value="3">Three Phase</option>
+        </Select>
+        <label>System Capacity:</label>
+        <Select
+          required
+          value={systemCapacity}
+          onChange={(e) => setSystemCapacity(e.target.value)}
+        >
+          <option value="" disabled selected hidden>
+            Select System Capacity
+          </option>
+          {sysCapacities?.map((option) => (
+            <option key={option.dc_capacity} value={option.dc_capacity}>
+              {option.dc_capacity}
+            </option>
+          ))}
         </Select>
         <Button onClick={handleSearch} disabled={!btndsbld}>
           Search

@@ -4,6 +4,15 @@ import AsyncSelect from "react-select/async";
 import { FixedSizeList as List } from "react-window";
 
 const customStyles = {
+  container: (provided) => ({
+    ...provided,
+    display: "block",
+    width: "100%",
+  }),
+  control: (provided) => ({
+    ...provided,
+    width: "100%",
+  }),
   option: (provided, state) => ({
     ...provided,
     color: state.isSelected ? "white" : "black",
@@ -60,6 +69,14 @@ const CustomSelect = ({
         options.push({
           value: option.item_id,
           label: option.item_nm,
+        });
+      });
+  } else if (component === "syscapacity") {
+    data &&
+      data.map((option) => {
+        options.push({
+          value: option.dc_capacity,
+          label: option.dc_capacity,
         });
       });
   }

@@ -2,7 +2,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Grid from "../CommonComponents/Grid";
 import { TabContainer, TabContent, TabTitle } from "../CommonStyles";
-import { fetchSolarModuleDetails } from "../../api/ManageItems/solarModuleSysDetails";
+import {
+  deleteSolarItem,
+  fetchSolarModuleDetails,
+} from "../../api/ManageItems/solarModuleSysDetails";
 import SolarItemInputForm from "./AddItems";
 
 const columnDefs = [
@@ -76,9 +79,13 @@ export const SolarItemsGrid = () => {
   };
 
   // Function to handle deleting a row
-  const handleDeleteRow = (rowId) => {
-    console.log("Deleting row with ID:", rowId);
-    setRowData(rowData.filter((row) => row.dcCapacity !== rowId.dcCapacity));
+  const handleDeleteRow = async (rowId) => {
+    console.log("Deleting row:", rowId);
+    await deleteSolarItem({
+      sysType: activeTab,
+      dcCapacity: rowId.dc_capacity,
+    });
+    setRowData(rowData.filter((row) => row.dc_capacity !== rowId.dc_capacity));
   };
 
   useEffect(() => {
@@ -121,16 +128,16 @@ export const SolarItemsGrid = () => {
         Grid Tied System
       </TabTitle>
       <TabTitle
-        onClick={() => setActiveTab("offGridSys")}
-        isActive={activeTab === "offGridSys"}
+        onClick={() => setActiveTab("off-grid")}
+        isActive={activeTab === "off-grid"}
       >
         Off Grid System
       </TabTitle>
       <TabTitle
-        onClick={() => setActiveTab("hybridSys")}
-        isActive={activeTab === "hybridSys"}
+        onClick={() => setActiveTab("hybrid")}
+        isActive={activeTab === "hybrid"}
       >
-        Off Grid System
+        Hybrid System
       </TabTitle>
       <TabContent>
         {activeTab === "grid-tied" && (
@@ -151,7 +158,7 @@ export const SolarItemsGrid = () => {
             )}
           </>
         )}
-        {activeTab === "offGridSys" && (
+        {activeTab === "off-grid" && (
           <>
             {editingRowData ? (
               // Conditionally render the form when editingRowData is not null
@@ -169,7 +176,7 @@ export const SolarItemsGrid = () => {
             )}
           </>
         )}
-        {activeTab === "hybridSys" && (
+        {activeTab === "hybrid" && (
           <>
             {editingRowData ? (
               // Conditionally render the form when editingRowData is not null

@@ -36,3 +36,14 @@ export const fetchUpdatedSearchResults = async (payload) => {
     return [];
   }
 };
+
+export const fetchSysCapacities = async (payload) => {
+  let url = "/grid-tied/getsyscapacity";
+  try {
+    const response = await api.post(url, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching system capacities:", error);
+    return [];
+  }
+};
